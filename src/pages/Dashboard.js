@@ -3,16 +3,25 @@ import { connect } from "react-redux";
 
 import * as actions from "../actions/cards_action";
 import ErrorBoundary from "../components/ErrorBoundary";
-import CardList from "../components/CardList";
+// import CardList from "../components/CardList";
 import CardsTable from "../components/CardsTable";
 import { getCardsForTable } from "../selectors/cards_selector";
 
-function Dashboard({ cards, fetchCards, tableCards }) {
+function Dashboard({
+  cards,
+  fetchCards,
+  tableCards,
+  fetchCustomFields,
+  customField,
+  fetchBoardsName,
+  fetchComposed
+}) {
   useEffect(() => {
-    fetchCards();
+    fetchComposed();
   }, []);
 
-  console.log("cards from dashboard", cards);
+  // console.log("customField from dashboard", customField);
+  // console.log("cards from dashboard", cards);
 
   return (
     <div>

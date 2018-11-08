@@ -36,7 +36,6 @@ class CardsTable extends React.Component {
               <Tooltip title={value}>
                 <Typography
                   className={classes.root}
-                  component="body1"
                   variant="body1"
                   gutterBottom
                   noWrap
@@ -46,6 +45,12 @@ class CardsTable extends React.Component {
               </Tooltip>
             );
           }
+        }
+      },
+      {
+        name: "Creation Date",
+        options: {
+          filter: false
         }
       },
       {
@@ -76,6 +81,12 @@ class CardsTable extends React.Component {
         name: "Link",
         options: {
           filter: false
+        }
+      },
+      {
+        name: "HandOff",
+        options: {
+          filter: true
         }
       }
     ];

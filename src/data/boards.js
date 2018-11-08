@@ -1,10 +1,10 @@
 export const BOARDS_ID = [
   {
-    name: "orderdesk-europe-restricted-accounts-1",
-    id: "SNFUkVbV"
+    name: "am-trello-test-1",
+    id: "9GjKSp5k"
   },
   {
-    name: "pre-acquisition-europe-restricted-accounts-1",
-    id: "hpqXODyA"
+    name: "am-trello-test-2",
+    id: "J0ZtMcss"
   }
 ];
