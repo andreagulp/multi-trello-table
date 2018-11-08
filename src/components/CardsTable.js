@@ -24,13 +24,13 @@ class CardsTable extends React.Component {
       {
         name: "Name",
         options: {
-          filter: true
+          filter: false
         }
       },
       {
         name: "Description",
         options: {
-          filter: true,
+          filter: false,
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <Tooltip title={value}>
@@ -47,18 +47,7 @@ class CardsTable extends React.Component {
           }
         }
       },
-      {
-        name: "Creation Date",
-        options: {
-          filter: false
-        }
-      },
-      {
-        name: "last update date",
-        options: {
-          filter: false
-        }
-      },
+
       {
         name: "Board Name",
         options: {
@@ -80,13 +69,38 @@ class CardsTable extends React.Component {
       {
         name: "Link",
         options: {
-          filter: false
+          filter: false,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <a target="_blank" rel="noopener noreferrer" href={value}>
+                {value}
+              </a>
+            );
+          }
         }
       },
       {
         name: "HandOff",
         options: {
           filter: true
+        }
+      },
+      {
+        name: "Open Since (days)",
+        options: {
+          filter: false
+        }
+      },
+      {
+        name: "Creation Date",
+        options: {
+          filter: false
+        }
+      },
+      {
+        name: "last update date",
+        options: {
+          filter: false
         }
       }
     ];

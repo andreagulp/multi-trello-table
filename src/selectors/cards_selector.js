@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import moment from "moment";
 
 const getCards = state => state.cards;
 const getCustomFields = state => state.customField;
@@ -29,14 +30,15 @@ export const getCardsForTable = createSelector(
         [
           card.name,
           card.desc,
-          card.dateCreated.toISOString(),
-          card.dateLastActivity,
           newBoardsName.toString(),
           newListsName.toString(),
-          // card.idList,
           card.labels.map(label => `${label.name}, `).toString(),
           card.shortUrl,
-          customFieldName.toString()
+          customFieldName.toString(),
+          moment().diff(card.dateCreated, "days"),
+          // moment(card.dateCreated).fromNow()
+          card.dateCreated.toISOString(),
+          card.dateLastActivity
         ]
       ];
 

@@ -7,8 +7,6 @@ import {
 } from "./types";
 import { BOARDS_ID } from "../data/boards";
 
-// https://api.trello.com/1/boards/9GjKSp5k/&key=034df4e86e182dcb9744404416df8717&token=5e1b83cffcd973a92e2200f36a040f558e47996277821d636d4b4d73e95aef68
-
 const baseUrl = "https://api.trello.com/1/boards/";
 const fields =
   "name,closed,shortUrl,idList,labels,desc,dateLastActivity,idBoard,idList,id,customFieldItems";
