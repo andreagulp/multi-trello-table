@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Header from "./components/Header";
 
@@ -9,8 +9,8 @@ function App() {
     <div>
       <Header />
       <Switch>
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/" component={Home} />
+        {/* <Route path="/dashboard" component={Dashboard} /> */}
+        <Route path="/" component={Dashboard} />
       </Switch>
     </div>
   );

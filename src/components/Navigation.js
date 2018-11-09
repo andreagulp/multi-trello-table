@@ -4,8 +4,7 @@ import Drawer from "@material-ui/core/Drawer";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import Dashboard from "@material-ui/icons/Dashboard";
 import { Link } from "react-router-dom";
 
 const styles = {
@@ -20,14 +19,14 @@ const styles = {
 const menuConfig = [
   {
     url: "/",
-    icon: <MailIcon />,
+    icon: <Dashboard />,
     label: "Home"
-  },
-  {
-    url: "/dashboard",
-    icon: <InboxIcon />,
-    label: "Dashboard"
   }
+  // {
+  //   url: "/dashboard",
+  //   icon: <InboxIcon />,
+  //   label: "Dashboard"
+  // }
 ];
 
 function Navigation({ classes, toggleNavigation, navState }) {

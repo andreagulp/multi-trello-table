@@ -40,7 +40,7 @@ function Header({ classes }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            News
+            AM Trello Dashboard
           </Typography>
         </Toolbar>
       </AppBar>

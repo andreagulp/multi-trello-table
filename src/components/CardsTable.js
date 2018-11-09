@@ -73,7 +73,8 @@ class CardsTable extends React.Component {
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <a target="_blank" rel="noopener noreferrer" href={value}>
-                {value}
+                {/* {value} */}
+                <i class="fab fa-trello" />
               </a>
             );
           }
@@ -109,8 +110,9 @@ class CardsTable extends React.Component {
 
     const options = {
       filter: true,
-      filterType: "dropdown",
-      responsive: "scroll"
+      filterType: "multiselect",
+      responsive: "scroll",
+      selectableRows: false
     };
 
     return (
