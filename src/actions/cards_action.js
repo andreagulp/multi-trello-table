@@ -3,13 +3,14 @@ import {
   FETCH_CARDS,
   FETCH_CUSTOM_FIELDS,
   FETCH_BOARDS_NAME,
-  FETCH_LISTS_NAME
+  FETCH_LISTS_NAME,
+  FETCH_MEMBERS_NAME
 } from "./types";
 import { BOARDS_ID } from "../data/boards";
 
 const baseUrl = "https://api.trello.com/1/boards/";
 const fields =
-  "name,closed,shortUrl,idList,labels,desc,dateLastActivity,idBoard,idList,id,customFieldItems";
+  "name,closed,shortUrl,idList,labels,desc,dateLastActivity,idBoard,idList,id,customFieldItems,idMembers";
 const key = "034df4e86e182dcb9744404416df8717";
 const token =
   "5e1b83cffcd973a92e2200f36a040f558e47996277821d636d4b4d73e95aef68";
@@ -26,6 +27,9 @@ const fullUrlBoardsName = boardId =>
 const fullUrlListsName = boardId =>
   `${baseUrl}${boardId}/lists?key=${key}&token=${token}`;
 
+const fullUrlMembersName = boardId =>
+  `${baseUrl}${boardId}/members?&key=${key}&token=${token}`;
+
 const BOARDS = BOARDS_ID;
 
 export const fetchCards = () => {
@@ -36,19 +40,27 @@ export const fetchCards = () => {
         .then(res => res.data)
         .then(data =>
           data.map(card => {
-            // console.log(card.id);
             return {
               ...card,
               dateCreated: new Date(
                 1000 * parseInt(card.id.substring(0, 8), 16)
               ),
-              customFieldId: card.customFieldItems.map(x => x.idValue)[0]
+              pendingReason: card.customFieldItems
+                .filter(x => {
+                  return x.idCustomField === board.pendingReason;
+                })
+                .map(y => y.idValue)[0],
+              product: card.customFieldItems
+                .filter(x => {
+                  return x.idCustomField === board.product;
+                })
+                .map(y => y.idValue)[0],
+              idOwner: card.idMembers[0]
             };
           })
         )
     )
   );
-  console.log("fetchCards request from actions", request);
 
   return {
     type: FETCH_CARDS,
@@ -63,10 +75,9 @@ export const fetchCustomFields = () => {
     BOARDS.map(board =>
       axios
         .get(fullUrlCustomFields(board.id))
-        .then(res => res.data.map(x => x.options))
+        .then(res => res.data.filter(x => x.options).map(x => x.options))
     )
   );
-  console.log("fetchCustomFields request from actions", request);
 
   return {
     type: FETCH_CUSTOM_FIELDS,
@@ -80,7 +91,6 @@ export const fetchBoardsName = () => {
       axios.get(fullUrlBoardsName(board.id)).then(res => res.data)
     )
   );
-  console.log("fetchBoardsName request from actions", request);
 
   return {
     type: FETCH_BOARDS_NAME,
@@ -94,7 +104,6 @@ export const fetchListsName = () => {
       axios.get(fullUrlListsName(board.id)).then(res => res.data)
     )
   );
-  console.log("fetchBoardsName request from actions", request);
 
   return {
     type: FETCH_LISTS_NAME,
@@ -102,9 +111,23 @@ export const fetchListsName = () => {
   };
 };
 
+export const fetchMembersName = () => {
+  let request = Promise.all(
+    BOARDS.map(board =>
+      axios.get(fullUrlMembersName(board.id)).then(res => res.data)
+    )
+  );
+
+  return {
+    type: FETCH_MEMBERS_NAME,
+    payload: request
+  };
+};
+
 export const fetchComposed = () => {
   return function(dispatch) {
     return dispatch(fetchCustomFields())
+      .then(() => dispatch(fetchMembersName()))
       .then(() => dispatch(fetchBoardsName()))
       .then(() => dispatch(fetchListsName()))
       .then(() => dispatch(fetchCards()));

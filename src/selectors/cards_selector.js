@@ -5,15 +5,21 @@ const getCards = state => state.cards;
 const getCustomFields = state => state.customField;
 const getBoardsName = state => state.boardsName;
 const getListsName = state => state.listsName;
+const getMembersName = state => state.membersName;
 
 export const getCardsForTable = createSelector(
-  [getCards, getCustomFields, getBoardsName, getListsName],
-  (cards, customField, boardsName, listsName) => {
+  [getCards, getCustomFields, getBoardsName, getListsName, getMembersName],
+  (cards, customField, boardsName, listsName, membersName) => {
     let tableCards = [];
 
     cards.map(card => {
-      let customFieldName = customField
-        .filter(x => x.id === card.customFieldId)
+      let pendingReasonName = customField
+        .filter(x => x.id === card.pendingReason)
+        .map(y => y.value)
+        .map(x => x.text);
+
+      let productName = customField
+        .filter(x => x.id === card.product)
         .map(y => y.value)
         .map(x => x.text);
 
@@ -25,6 +31,11 @@ export const getCardsForTable = createSelector(
         .filter(x => x.id === card.idList)
         .map(y => y.name);
 
+      let newMemberName = membersName
+        .filter(x => x.id === card.idOwner)
+        .map(y => y.fullName)
+        .map(z => z);
+
       tableCards = [
         ...tableCards,
         [
@@ -33,10 +44,11 @@ export const getCardsForTable = createSelector(
           newBoardsName.toString(),
           newListsName.toString(),
           card.labels.map(label => `${label.name}, `).toString(),
-          card.shortUrl,
-          customFieldName.toString(),
+          productName.toString(),
+          newMemberName.toString(),
+          pendingReasonName.toString(),
           moment().diff(card.dateCreated, "days"),
-          // moment(card.dateCreated).fromNow()
+          card.shortUrl,
           card.dateCreated.toISOString(),
           card.dateLastActivity
         ]
@@ -44,7 +56,6 @@ export const getCardsForTable = createSelector(
 
       return tableCards;
     });
-    console.log("tableCards from selector", tableCards);
     return tableCards;
   }
 );

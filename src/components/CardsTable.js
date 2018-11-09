@@ -63,21 +63,19 @@ class CardsTable extends React.Component {
       {
         name: "Labels",
         options: {
+          filter: false
+        }
+      },
+      {
+        name: "Product",
+        options: {
           filter: true
         }
       },
       {
-        name: "Link",
+        name: "Owner",
         options: {
-          filter: false,
-          customBodyRender: (value, tableMeta, updateValue) => {
-            return (
-              <a target="_blank" rel="noopener noreferrer" href={value}>
-                {/* {value} */}
-                <i class="fab fa-trello" />
-              </a>
-            );
-          }
+          filter: true
         }
       },
       {
@@ -90,6 +88,20 @@ class CardsTable extends React.Component {
         name: "Open Since (days)",
         options: {
           filter: false
+        }
+      },
+      {
+        name: "Link",
+        options: {
+          filter: false,
+          customBodyRender: (value, tableMeta, updateValue) => {
+            return (
+              <a target="_blank" rel="noopener noreferrer" href={value}>
+                {/* {value} */}
+                <i className="fab fa-trello" />
+              </a>
+            );
+          }
         }
       },
       {
@@ -113,11 +125,12 @@ class CardsTable extends React.Component {
       filterType: "multiselect",
       responsive: "scroll",
       selectableRows: false
+      // resizableColumns: true
     };
 
     return (
       <MUIDataTable
-        title={"AM Trello Boards"}
+        // title={"AM Trello Boards"}
         data={data}
         columns={columns}
         options={options}
