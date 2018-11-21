@@ -79,7 +79,7 @@ class CardsTable extends React.Component {
         }
       },
       {
-        name: "HandOff",
+        name: "Pending Reason",
         options: {
           filter: true
         }
