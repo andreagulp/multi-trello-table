@@ -7,13 +7,13 @@ import {
   FETCH_MEMBERS_NAME
 } from "./types";
 import { BOARDS_ID } from "../data/boards";
+import { trelloAuth } from "./trello-auth";
 
 const baseUrl = "https://api.trello.com/1/boards/";
 const fields =
   "name,closed,shortUrl,idList,labels,desc,dateLastActivity,idBoard,idList,id,customFieldItems,idMembers";
-const key = "034df4e86e182dcb9744404416df8717";
-const token =
-  "5e1b83cffcd973a92e2200f36a040f558e47996277821d636d4b4d73e95aef68";
+const key = trelloAuth.key;
+const token = trelloAuth.token;
 
 const fullUrlBoard = boardId =>
   `${baseUrl}${boardId}/cards?fields=${fields}&customFieldItems=true&key=${key}&token=${token}`;
